@@ -1,0 +1,52 @@
+<% if flash[:errors] %>
+	<% flash[:errors].each do |msg| %>
+	<p style="color: red"><%= msg %></p>
+	<% end %>
+<% end %>
+
+<% if flash[:session_errors] %>
+	<p style="color: red"><%= flash[:session_errors] %></p>
+<% end %>
+
+<div class="row">
+	<div class="col-xs-6">
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Register</h3>
+			</div>
+			<div class="panel-body">
+				<form action="/mains" method="post">
+					<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+					<label for="name">Name</label>
+					<input type="text" name="users[name]" class="form-control" id="name">
+					<label for="email">Email</label>
+					<input type="text" name="users[email]" class="form-control" id="email">
+					<label for="password">Password</label>
+					<input type="password" name="users[password]" class="form-control" id="password">
+					<label for="passconf">Password Confirmation</label>
+					<input type="password" name="users[password_confirmation]" class="form-control" id="passconf">
+					<label for="description" class="form">Description</label>
+					<textarea name="users[description]" class="form-control"></textarea>
+					<button class="btn btn-success form-control">Sign Up</button>
+				</form>
+			</div>
+		</div>	
+	</div>
+	<div class="col-xs-6">
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Login</h3>
+			</div>
+			<div class="panel-body">
+				<form action="/sessions" method="post">
+					<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+					<label for="email">Email</label>
+					<input type="email" name="sessions[email]" class="form-control" id="email">
+					<label for="password">Password</label>
+					<input type="password" name="sessions[password]" class="form-control" id="password">
+					<button class="btn btn-success form-control">Log In</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

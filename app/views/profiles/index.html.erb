@@ -1,0 +1,54 @@
+<div class="panel panel-success">
+	<div class="panel-heading">
+		<h3 class="panel-title">Here is your profile description</h3>
+	</div>
+	<div class="panel-body">
+		<p><%= @profile.description %></p>
+	</div>
+</div>
+
+<div class="panel panel-success">
+	<div class="panel-heading">
+		<h3 class="panel-title">Your Professional Network: </h3>
+	</div>
+	<div class="panel-body">
+		<table class="table table-striped">
+			<% @connect.each do |c| %>
+			<tr>
+				<th><a href="/users/<%= c.connect_id %>"><%= c.find_connect c.connect_id %></a></th>
+			</tr>
+			<% end %>
+		</table>
+	</div>
+</div>
+
+<div class="panel panel-success">
+	<div class="panel-heading">
+		<h3 class="panel-title">Invitations: </h3>
+	</div>
+	<div class="panel-body">
+		<p>The following People asked you to be their network</p>
+		<table class="table table-striped">
+			<tr>
+				<th>Name</th>
+				<th>Action</th>
+			</tr>
+			<% @friend.each do |f| %>
+			<tr>
+				<td><%= f.find_friend(f.friend_id) %></td>
+				<td>
+				<form action="/connects" method="post" style="display: inline-block">
+					<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+					<input type="hidden" name="friend_id" value="<%= f.friend_id %>">
+					<button class="btn btn-success">Accept Invite</button>
+				</form>
+				<form action="/friendships/<%= f.id %>" method="post" style="display: inline-block">
+					<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+					<input type="hidden" name="_method" value="delete">
+					<button class="btn btn-danger">Ignore</button>
+				</form>
+			</tr>
+			<% end %>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,27 @@
+<div class="panel panel-success">
+	<div class="panel-heading">
+		<h3 class="panel-title">Users you may want to connect with: </h3>
+	</div>
+	<div class="panel-body">
+		<table class="table table-striped">
+			<tr>
+				<th><a href="#">Name</a></th>
+				<th><a href="#">Action</a></th>
+			</tr>
+			<% @users.each do |u| %>
+			<% if !u.has_friend(u.id) && !u.has_connect(u.id) %>
+			<tr>
+				<td><a href="/users/<%= u.id %>"><%= u.name %></a></td>
+				<td>
+					<form action="/friendships" method="post">
+						<input type="hidden" value="<%= u.id %>" name="friend_id">
+						<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
+						<button class="btn btn-info">Connect</button>
+					</form>
+				</td>
+			</tr>
+			<% end %>
+			<% end %>
+		</table>
+	</div>
+</div>
